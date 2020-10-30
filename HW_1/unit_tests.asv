@@ -4,12 +4,10 @@ clc;
 clear;
 close all;
 
-show_compare_images = true;
-show_simulation = false;
-show_iteration_energy = false;
-iterations = 0;
+simulation = true;
+iteration_energy = false;
 
-image_type = 2;
+image_type = 0;
 % 0 - Artificial
 % 1 - Elena
 % 2 - Cups
@@ -29,7 +27,7 @@ switch (image_type)
     case 2
         img = round(double(imread("..\IMAGES\cups.tif")));
 end
-
+        
 %% 1
 
 image_histogram = histImage(img);
@@ -55,9 +53,9 @@ colormap('gray');
 
 %% 3
 
-[imgNbit, Qvals, E, dE] = optimalQuantizationDebugAble(img, N, epsilon, show_simulation, iterations);
+[imgNbit, Qvals, E, dE] = optimalQuantization(img, N, epsilon, simulation, iteratios);
 
-if show_iteration_energy
+if iteration_energy
 
     figure('WindowState', 'maximized');
 
@@ -75,23 +73,5 @@ if show_iteration_energy
     plot(dE(2:end))
     grid on
     title("dE")
-
-end
-
-if show_compare_images
-
-    figure('WindowState', 'maximized');
-
-    subplot(1, 2, 1)
-    imagesc(img)
-    title('8 bit')
-    colormap('gray');
-    axis image;
-
-    subplot(1, 2, 2)
-    imagesc(imgNbit)
-    title('N bit - Optimal')
-    colormap('gray');
-    axis image;
 
 end
