@@ -60,7 +60,7 @@ function [imgNbit, Qvals, E, dE] = optimalQuantizationDebugAble(img8bit, N, epsi
             pause;
         end
 
-        iteration = iteration + 1
+        iteration = iteration + 1;
         
     end
     

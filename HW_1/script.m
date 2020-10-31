@@ -4,29 +4,18 @@ clc;
 clear;
 close all;
 
-N = 4;
-
 %% a
 
-image_type = 2;
-% 1 - Elena
-% 2 - Cups
+image = round(double(imread("..\IMAGES\cups.tif")));
 
-switch (image_type)
-    case 1
-        img = round(double(imread("..\IMAGES\lena.tif")));
-    case 2
-        img = round(double(imread("..\IMAGES\cups.tif")));
-end
+[imgNbitUniform, ~] = uniformQuantization(image, 4);
 
-[imgNbitUniform, ~] = uniformQuantization(img, N);
-
-[imgNbitOptimal, ~] = optimalQuantization(img, N);
+[imgNbitOptimal, ~] = optimalQuantization(image, 4);
 
 figure('WindowState', 'maximized');
 
 subplot(1, 3, 1)
-imagesc(img)
+imagesc(image)
 title('8 bit')
 colormap('gray');
 axis image;
@@ -43,13 +32,40 @@ title('N bit - Optimal')
 colormap('gray');
 axis image;
 
+pause
+
 %% b
 
+image = round(double(imread("..\IMAGES\ricefields.tif")));
+
+[bimage] = binarize(image, 128);
+
+[bimageOpt, T] = binarizeOpt(image);
+
+figure('WindowState', 'maximized');
+
+subplot(1, 3, 1)
+imagesc(image)
+title('8 bit')
+colormap('gray');
+axis image;
+
+subplot(1, 3, 2)
+imagesc(bimage)
+title('1 bit')
+colormap('gray');
+axis image;
+
+subplot(1, 3, 3)
+imagesc(bimageOpt)
+title('1 bit Optimized')
+colormap('gray');
+axis image;
+
+pause
+ 
+%% c
 
 
 
-
-
-
-
-
+pause

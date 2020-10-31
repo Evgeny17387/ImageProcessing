@@ -1,4 +1,4 @@
-%% Reset Views
+%% Init
 
 clc;
 clear;
@@ -14,7 +14,7 @@ image_type = 2;
 % 1 - Elena
 % 2 - Cups
 
-N = 4;
+N = 1;
 
 epsilon = 1;
 
