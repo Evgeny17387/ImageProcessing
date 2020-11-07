@@ -2,9 +2,9 @@ function [bimg] = binarizeOptAdaptive(im, winsize)
 
     bimg = im;
 
-    for i = 1 : winsize : size(im, 1) - winsize
+    for i = 1 : 1 : size(im, 1) - winsize
         
-        for j = 1 : winsize : size(im, 2) - winsize
+        for j = 1 : 1 : size(im, 2) - winsize
 
             [~, Qvals] = optimalQuantization(im(i: i + winsize - 1, j: j + winsize - 1), 1);
 

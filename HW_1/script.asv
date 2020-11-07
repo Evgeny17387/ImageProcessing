@@ -18,7 +18,7 @@ subplot(1, 3, 1)
 imagesc(image)
 rectangle('Position', [10, 70, 80, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
 rectangle('Position', [165, 60, 60, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
-title(['Bits: ', num2str(8),' - Original'])
+title(['Bit: ', num2str(8),' - Original'])
 colormap('gray');
 axis image;
 
@@ -26,7 +26,7 @@ subplot(1, 3, 2)
 imagesc(imgNbitUniform)
 rectangle('Position', [10, 70, 80, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
 rectangle('Position', [165, 60, 60, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
-title(['Bits: ', num2str(N),' - Uniform'])
+title(['Bit: ', num2str(N),' - Uniform'])
 colormap('gray');
 axis image;
 
@@ -34,20 +34,20 @@ subplot(1, 3, 3)
 imagesc(imgNbitOptimal)
 rectangle('Position', [10, 70, 80, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
 rectangle('Position', [165, 60, 60, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
-title(['Bits: ', num2str(N),' - Optimal'])
+title(['Bit: ', num2str(N),' - Optimal'])
 colormap('gray');
 axis image;
 
 section_text = [
-    '\bf ', 'Section A: Uniform Quantization Vs. Optimal Qunatization', ' \rm', ...
+    'Section A: Uniform Quantization Vs. Optimal Qunatization', ...
     newline, ...
-    'Optimal Qunatization is using', ' \bf ', 'Loyd-Max', ' \rm ', 'Algorithm for Optimal Quantization', ...
+    'Optimal Qunatization is using Layd-Max Algorithm for optimal quantix', ...
     newline, ...
     'In the red squares, false contours can be seen for uniform quntization much worst than for optimal quantization', ...
     newline, ...
     'Please hit Enter key to continue to the next section'
 ];
-sgtitle(section_text, 'Color', 'blue')
+sgtitle(section_text, 'Color', 'red')
 disp(section_text)
 
 % pause

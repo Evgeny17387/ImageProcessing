@@ -28,11 +28,11 @@ switch (image_type)
         size = 256;
         image = reshape(floor(normrnd(mu, sigma, [1, size * size])), size, size);
     case 1
-        image = round(double(imread("..\IMAGES\lena.tif")));
+        image = round(double(imread("lena.tif")));
     case 2
-        image = round(double(imread("..\IMAGES\cups.tif")));
+        image = round(double(imread("cups.tif")));
     case 3
-        image = round(double(imread("..\IMAGES\ricefields.tif")));
+        image = round(double(imread("ricefields.tif")));
 end
 
 %% 1
