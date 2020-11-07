@@ -18,7 +18,7 @@ subplot(1, 3, 1)
 imagesc(image)
 rectangle('Position', [10, 70, 80, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
 rectangle('Position', [165, 60, 60, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
-title(['Bits: ', num2str(8),' - Original'])
+title(['Original - 8 bits'], 'FontSize', 16)
 colormap('gray');
 axis image;
 
@@ -26,7 +26,7 @@ subplot(1, 3, 2)
 imagesc(imgNbitUniform)
 rectangle('Position', [10, 70, 80, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
 rectangle('Position', [165, 60, 60, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
-title(['Bits: ', num2str(N),' - Uniform'])
+title(['Uniform Quantization - ',num2str(N), ' bits'], 'FontSize', 16)
 colormap('gray');
 axis image;
 
@@ -34,7 +34,7 @@ subplot(1, 3, 3)
 imagesc(imgNbitOptimal)
 rectangle('Position', [10, 70, 80, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
 rectangle('Position', [165, 60, 60, 50], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
-title(['Bits: ', num2str(N),' - Optimal'])
+title(['Optimal Quantization - ',num2str(N), ' bits'], 'FontSize', 16)
 colormap('gray');
 axis image;
 
