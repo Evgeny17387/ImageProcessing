@@ -4,7 +4,7 @@ clc;
 clear;
 close all;
 
-image = round(double(imread("cups.tif")));
+image = round(double(imread("Images\cups.tif")));
 
 N = 4;
 
@@ -58,7 +58,7 @@ clc;
 clear;
 close all;
 
-image = round(double(imread("ricefields.tif")));
+image = round(double(imread("Images\ricefields.tif")));
 
 [bimage] = binarize(image, 128);
 
@@ -84,7 +84,7 @@ title('1 bit Optimized')
 colormap('gray');
 axis image;
 
-pause
+% pause
  
 %% C
 
@@ -98,4 +98,4 @@ close all;
 
 
 
-pause
+% pause
