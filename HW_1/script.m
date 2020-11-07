@@ -146,7 +146,7 @@ set(gca,'ytick',[])
 [bimageAdaptive] = binarizeOptAdaptive(image, winsize);
 subplot(1, 3, 3)
 imagesc(bimageAdaptive)
-title(['Binarized Adaprive'], 'FontSize', 16)
+title(['Binarized Adaptive, Window Size = ', num2str(winsize)], 'FontSize', 16)
 colormap('gray');
 axis image;
 set(gca,'xtick',[])
