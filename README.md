@@ -11,3 +11,5 @@ Optimal Quantization improves False Contours
 Using <b>Lyod-Max Algorithm</b> for Optimal Binarization from 8 to 1 bit</br>
 Optimal Binarization makes objects distinguishable from background
 ![alt text](HW_1/Results/Section_B.png)
+Adaptive Binarization makes objects distinguishable from background in more complex environment
+![alt text](HW_1/Results/Section_C.png)
