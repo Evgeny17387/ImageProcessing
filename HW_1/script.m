@@ -115,7 +115,7 @@ clc;
 clear;
 close all;
 
-T = 128;
+winsize = 256;
 
 figure('WindowState', 'maximized');
 set(gcf, 'Color', 'white');
@@ -130,18 +130,8 @@ axis image;
 set(gca,'xtick',[])
 set(gca,'ytick',[])
 
-[bimage] = binarize(image, 128);
-subplot(1, 3, 2)
-imagesc(bimage)
-rectangle('Position', [25, 80, 60, 150], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 4, 'LineStyle', '--')
-title(['Binarized Manually, Threshold = ', num2str(T)], 'FontSize', 16)
-colormap('gray');
-axis image;
-set(gca,'xtick',[])
-set(gca,'ytick',[])
-
 [bimageOpt, T] = binarizeOpt(image);
-subplot(1, 3, 3)
+subplot(1, 3, 2)
 imagesc(bimageOpt)
 rectangle('Position', [25, 80, 60, 150], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 4, 'LineStyle', '--')
 title(['Binarized Optimal, Threshold = ', num2str(T)], 'FontSize', 16)
@@ -150,12 +140,26 @@ axis image;
 set(gca,'xtick',[])
 set(gca,'ytick',[])
 
+[bimageAdaptive] = binarizeOptAdaptive(image, winsize);
+subplot(1, 3, 3)
+imagesc(bimageAdaptive)
+rectangle('Position', [25, 80, 60, 150], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 4, 'LineStyle', '--')
+title(['Binarized Adaprive'], 'FontSize', 16)
+colormap('gray');
+axis image;
+set(gca,'xtick',[])
+set(gca,'ytick',[])
+
 section_b_text = [
-    '\bf ', 'Section B: Manual Binarization Vs. Optimal Binarization', ' \rm', ...
+    '\bf ', 'Section C: Optimal Binarization Vs. Adaptive Binarization', ' \rm', ...
     newline, ...
-    'In the red squares, for the manual binarization the person is hard to see, but in the optimized he can be easily distinguished', ...
+    'In the red squares, ...', ...
+    newline, ...
+    'Adaptive Binatrization gives better results because ...', ...
     newline, ...
     'Please hit Enter key to continue to the next section'
 ];
 sgtitle(section_b_text, 'Color', 'blue')
 disp(section_b_text)
+
+% pause
