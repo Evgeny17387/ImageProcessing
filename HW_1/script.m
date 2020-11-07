@@ -157,7 +157,15 @@ section_b_text = [
     newline, ...
     'Adaptive Binatrization gives better results since it binarize by local threshold thus having more degrees of freedom ', ...
     newline, ...
-    'Please hit Enter key to continue to the next section'
+    newline, ...
+    newline, ...
+    'Please hit Enter key to finish presentation'
 ];
 sgtitle(section_b_text, 'Color', 'blue')
 disp(section_b_text)
+
+pause
+
+clc;
+clear;
+close all;

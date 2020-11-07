@@ -7,6 +7,7 @@ function [imgNbit, Qvals] = optimalQuantization(img8bit, N)
 
     % Initial guess
     z = round(linspace(0, 2 ^ 8 - 1, 2 ^ N + 1));
+    % Smart initial guess for binarized images
     if N == 1
         denominator = sum(histogram_8_bit(z(1) + 1: z(3) + 1));
         numerator = sum(histogram_8_bit(z(1) + 1: z(3) + 1) .* [z(1): z(3)]);
