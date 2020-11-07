@@ -1,4 +1,14 @@
 function [bimg] = binarizeOptAdaptive(im, winsize)
+% Description:
+% This function calculates adaptive optimal binarized image of an image using sliding window with local thresholds
+% Inputs:
+% im - image
+% winsize - slidng window size
+% Outputs:
+% bimg - adaptive optimal binarized image
+% Author:
+% Name - Evgeny Ostrovsky
+% Email - evgeny17387@gmail.com
     
     bimg = im;
 

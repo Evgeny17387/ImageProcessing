@@ -1,4 +1,13 @@
 function [h] = histImage(img)
+% Description:
+% This function calculates histogram of an image
+% Inputs:
+% img - image
+% Outputs:
+% h - histogram of image values
+% Author:
+% Name - Evgeny Ostrovsky
+% Email - evgeny17387@gmail.com
 
     scale = 256;
 
