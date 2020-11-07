@@ -47,12 +47,14 @@ section_a_text = [
     newline, ...
     'In the red squares, false contours can be seen for uniform quntization much worst than for optimal quantization', ...
     newline, ...
+    newline, ...
+    newline, ...
     'Please hit Enter key to continue to the next section'
 ];
 sgtitle(section_a_text, 'Color', 'blue')
 disp(section_a_text)
 
-% pause
+pause
 
 %% Section B
 
@@ -102,12 +104,14 @@ section_b_text = [
     newline, ...
     'Optimal Binatrization gives better results since it finds a threshold which is between the person and the background, unlike the given threshold which makes them the same', ...
     newline, ...
-    'Please hit Enter key to continue to the next section'
+    newline, ...
+    newline, ...
+    'Please hit Enter key to continue to the next section (note: next section will take a while to calculate)'
 ];
 sgtitle(section_b_text, 'Color', 'blue')
 disp(section_b_text)
 
-% pause
+pause
 
 %% Section C
 
@@ -115,15 +119,15 @@ clc;
 clear;
 close all;
 
-winsize = 256;
+winsize = 50;
 
 figure('WindowState', 'maximized');
 set(gcf, 'Color', 'white');
 
-image = round(double(imread("Images\ricefields.tif")));
+image = round(double(imread("Images\text.tif")));
+image = round(double(image(:,:,2))); 
 subplot(1, 3, 1)
 imagesc(image)
-rectangle('Position', [25, 80, 60, 150], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 4, 'LineStyle', '--')
 title(['Original - 8 bits'], 'FontSize', 16)
 colormap('gray');
 axis image;
@@ -133,7 +137,6 @@ set(gca,'ytick',[])
 [bimageOpt, T] = binarizeOpt(image);
 subplot(1, 3, 2)
 imagesc(bimageOpt)
-rectangle('Position', [25, 80, 60, 150], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 4, 'LineStyle', '--')
 title(['Binarized Optimal, Threshold = ', num2str(T)], 'FontSize', 16)
 colormap('gray');
 axis image;
@@ -143,7 +146,6 @@ set(gca,'ytick',[])
 [bimageAdaptive] = binarizeOptAdaptive(image, winsize);
 subplot(1, 3, 3)
 imagesc(bimageAdaptive)
-rectangle('Position', [25, 80, 60, 150], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 4, 'LineStyle', '--')
 title(['Binarized Adaprive'], 'FontSize', 16)
 colormap('gray');
 axis image;
@@ -153,13 +155,9 @@ set(gca,'ytick',[])
 section_b_text = [
     '\bf ', 'Section C: Optimal Binarization Vs. Adaptive Binarization', ' \rm', ...
     newline, ...
-    'In the red squares, ...', ...
-    newline, ...
-    'Adaptive Binatrization gives better results because ...', ...
+    'Adaptive Binatrization gives better results since it binarize by local threshold thus having more degrees of freedom ', ...
     newline, ...
     'Please hit Enter key to continue to the next section'
 ];
 sgtitle(section_b_text, 'Color', 'blue')
 disp(section_b_text)
-
-% pause

@@ -7,19 +7,13 @@ function [imgNbit, Qvals, E, dE] = optimalQuantizationDebugAble(img8bit, N, epsi
         figure('WindowState', 'maximized');
         subplot(1, 2, 1)
         imagesc(img8bit)
-        title(num2str(img8bit(round(size(img8bit, 1) / 2), round(size(img8bit, 2) / 2))))
+        title(num2str(img8bit(round()size(img8bit, 1) / 2)))
         colormap('gray');
         axis image;
     end
 
     % Initial guess
     z = round(linspace(0, 2 ^ 8 - 1, 2 ^ N + 1));
-    if N == 1
-        denominator = sum(histogram_8_bit(z(1) + 1: z(3) + 1));
-        numerator = sum(histogram_8_bit(z(1) + 1: z(3) + 1) .* [z(1): z(3)]);
-        z(2) = round(numerator / denominator);
-    end
-    
     q = round((z(1: end - 1) + z(2: end)) / 2);
 
     E = [];
@@ -59,7 +53,6 @@ function [imgNbit, Qvals, E, dE] = optimalQuantizationDebugAble(img8bit, N, epsi
         z(2: 2 ^ N) = round((q(1: end - 1) + q(2: end)) / 2);
         if show_simulation
             scatter(z, zeros([1, length(z)]), '+', 'red');
-            title(num2str(z(2)))
         end
 
         % Energy

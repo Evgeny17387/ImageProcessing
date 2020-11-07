@@ -4,11 +4,15 @@ function [imgNbit, Qvals] = optimalQuantization(img8bit, N)
 
     % Orignla image color histogram
     histogram_8_bit = histImage(img8bit);
-    % Patch, in order to avoid division by 0 in q
-    histogram_8_bit = histogram_8_bit + 1;
 
     % Initial guess
     z = round(linspace(0, 2 ^ 8 - 1, 2 ^ N + 1));
+    if N == 1
+        denominator = sum(histogram_8_bit(z(1) + 1: z(3) + 1));
+        numerator = sum(histogram_8_bit(z(1) + 1: z(3) + 1) .* [z(1): z(3)]);
+        z(2) = round(numerator / denominator);
+    end
+    
     q = round((z(1: end - 1) + z(2: end)) / 2);
 
     dE_current = intmax('uint64');
@@ -20,7 +24,11 @@ function [imgNbit, Qvals] = optimalQuantization(img8bit, N)
         for i = 1: 2 ^ N
             q_denominator = sum(histogram_8_bit(z(i) + 1: z(i + 1) + 1));
             q_numerator = sum(histogram_8_bit(z(i) + 1: z(i + 1) + 1) .* [z(i): z(i + 1)]);
-            q(i) = round(q_numerator / q_denominator);
+            if q_numerator == 0
+                q(i) = round((z(i) + z(i + 1)) / 2);
+            else
+                q(i) = round(q_numerator / q_denominator);
+            end
         end
         
         % Z
