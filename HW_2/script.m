@@ -5,27 +5,26 @@ close all;
 
 % Remote Control
 
-remote_control = 1;
-% 0 - save quads
-% 1 - load quads and play video
+remote_control = 1; % 0 - save quads, 1 - load quads and play video
+transformType = 0;
 
 % Parameters
 
-movieFileName = "allPointsSets.avi";
+movieFileName = "myMovie.avi";
+variablesFileName = "allPointsSets.mat";
 numFrames = 200;
-transformType = 0;
 
 % Magic Movie flow
 
-im = round(double(imread("Images\lena.tif")));
+im = round(double(imread("movieImage.tif")));
 
 switch remote_control
     case 0
         [pointsSet_grab, pointsSet_0, pointsSet_1] = getUserInputs(im);
-        save('quads.mat', 'pointsSet_grab', 'pointsSet_0', 'pointsSet_1');
+        save(variablesFileName, 'pointsSet_grab', 'pointsSet_0', 'pointsSet_1');
 
     case 1
-        load('quads.mat');
+        load(variablesFileName);
         createMagicMovie(movieFileName, numFrames, im, transformType, pointsSet_grab, pointsSet_0, pointsSet_1)
 
 end
