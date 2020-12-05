@@ -29,9 +29,34 @@ function [newIm] = mapQuad(im, pointsSet1, pointsSet2, transformType)
     inpolygon_points = inpolygon(X, Y, pointsSet2(1, :)', pointsSet2(2, :)');
     
     % Calculate all pixels (inside and outside the polygon) source pixels using the transformation matrix
-    X_tag = round(T * [X(:), Y(:), ones(size(X(:)))]');
+    X_tag = T * [X(:), Y(:), ones(size(X(:)))]';
+    X_tag_x = X_tag(1, :);
+    X_tag_y = X_tag(2, :);
+    
+    % Formulas accoridngly to Lecture 4 notations - Bilinear approximation
 
+    X_tag_x_E = ceil(X_tag_x);
+    X_tag_x_W = floor(X_tag_x);
+
+    X_tag_y_N = ceil(X_tag_y);
+    X_tag_y_S = floor(X_tag_y);
+    
+    SE = im(sub2ind(size(im), X_tag_y_S, X_tag_x_E));
+    SW = im(sub2ind(size(im), X_tag_y_S, X_tag_x_W));
+    
+    delta_x = X_tag_x - X_tag_x_W;
+    S = SE .* delta_x + SW .* (1 - delta_x);
+
+    NE = im(sub2ind(size(im), X_tag_y_N, X_tag_x_E));
+    NW = im(sub2ind(size(im), X_tag_y_N, X_tag_x_W));
+    
+    N = NE .* delta_x + NW .* (1 - delta_x);
+
+    delta_y = X_tag_y - X_tag_y_S;
+    
+    V = N .* delta_y + S .* (1 - delta_y);
+    
     % Outside polygon pixels leave as they are, inside polygon pixels take from other squad
-    newIm(sub2ind(size(newIm), Y(:), X(:))) = inpolygon_points(:) .* im(sub2ind(size(im), X_tag(2, :)', X_tag(1, :)')) + ~inpolygon_points(:) .* newIm(sub2ind(size(newIm), Y(:), X(:)));
+    newIm(sub2ind(size(newIm), Y(:), X(:))) = inpolygon_points(:) .* V' + ~inpolygon_points(:) .* newIm(sub2ind(size(newIm), Y(:), X(:)));
     
 end
