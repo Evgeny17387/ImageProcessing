@@ -25,6 +25,11 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
             disp('Number of inputs Error, expected all or pointsSet_grab, pointsSet_0, pointsSet_1 can be ommited');
             return;
     end
+    
+    % Complete points to have line that connect last and first points
+    pointsSet_0(:, 5) = pointsSet_0(:, 1);
+    pointsSet_grab(:, 5) = pointsSet_grab(:, 1);
+    pointsSet_1(:, 5) = pointsSet_1(:, 1);
 
     % Start video
     video = VideoWriter(movieFileName);
@@ -32,6 +37,10 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
     
     % Plot originak image and wait for objects to be plotted
     imagesc(im);
+    colormap('gray');
+    axis image;
+    set(gca,'xtick',[]);
+    set(gca,'ytick',[]);
     hold on;
 
     % Prepare trajectory for both ways
@@ -57,9 +66,15 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
 
     % Motion 2 - from pointsSet_grab to pointsSet_1
     for i = 1: numFrames
+
+        pointsSet1 = [grab_trajectory_pointsSet_1_pointsSex_x(i, :); grab_trajectory_pointsSet_1_pointsSex_y(i, :)];
+        pointsSet2 = pointsSet_grab;
         
+        newIm = mapQuad(im, pointsSet1, pointsSet2, transformType);
+
+        imagesc(newIm);
         p = plot(grab_trajectory_pointsSet_1_pointsSex_x(i, :)', grab_trajectory_pointsSet_1_pointsSex_y(i, :)', 'Color', 'cyan', 'LineWidth', 2);
-        
+
         frameT = getframe(gcf);
         writeVideo(video,frameT);
 

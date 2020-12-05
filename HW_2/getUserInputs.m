@@ -15,26 +15,24 @@ function [pointsSet_grab, pointsSet_0, pointsSet_1] = getUserInputs(im)
     axis image;
     set(gca,'xtick',[]);
     set(gca,'ytick',[]);
+    hold on;
 
     % Get pointsSet_0 quad
     title('Select Start Quad', 'FontSize', 16, 'Color', 'cyan')
     pointsSet_0 = ginput(4);
-    drawpolygon('Position', pointsSet_0, 'Color', 'cyan');
-    pointsSet_0 = transpose(pointsSet_0);
-    pointsSet_0(:, 5) = pointsSet_0(:, 1);
+    plot([pointsSet_0(:, 1); pointsSet_0(1, 1)], [pointsSet_0(:, 2); pointsSet_0(1, 2)], 'Color', 'cyan', 'LineWidth', 2);
+    pointsSet_0 = pointsSet_0';
 
     % Get pointsSet_grab quad
     title('Select Grab Quad', 'FontSize', 16, 'Color', 'yellow')
     pointsSet_grab = ginput(4);
-    drawpolygon('Position', pointsSet_grab, 'Color', 'yellow');
-    pointsSet_grab = transpose(pointsSet_grab);
-    pointsSet_grab(:, 5) = pointsSet_grab(:, 1);
+    plot([pointsSet_grab(:, 1); pointsSet_grab(1, 1)], [pointsSet_grab(:, 2); pointsSet_grab(1, 2)], 'Color', 'yellow', 'LineWidth', 2);
+    pointsSet_grab = pointsSet_grab';
 
     % Get pointsSet_1 quad
     title('Select End Quad', 'FontSize', 16, 'Color', 'magenta')
     pointsSet_1 = ginput(4);
-    drawpolygon('Position', pointsSet_1, 'Color', 'magenta');
-    pointsSet_1 = transpose(pointsSet_1);
-    pointsSet_1(:, 5) = pointsSet_1(:, 1);
+    plot([pointsSet_1(:, 1); pointsSet_1(1, 1)], [pointsSet_1(:, 2); pointsSet_1(1, 2)], 'Color', 'magenta', 'LineWidth', 2);
+    pointsSet_1 = pointsSet_1';
 
 end
