@@ -25,13 +25,11 @@ function [newIm] = mapQuad(im, pointsSet1, pointsSet2, transformType)
 
     [X, Y] = meshgrid(min_x: max_x, min_y: max_y);
 
-    % Check what pixles inside and outside the polygon
     inpolygon_points = inpolygon(X, Y, pointsSet2(1, :)', pointsSet2(2, :)');
     
-    % Calculate all pixels (inside and outside the polygon) source pixels using the transformation matrix
     X_tag = round(T * [X(:), Y(:), ones(size(X(:)))]');
-
-    % Outside polygon pixels leave as they are, inside polygon pixels take from other squad
+    
+    % Take the 
     newIm(sub2ind(size(newIm), Y(:), X(:))) = inpolygon_points(:) .* im(sub2ind(size(im), X_tag(2, :)', X_tag(1, :)')) + ~inpolygon_points(:) .* newIm(sub2ind(size(newIm), Y(:), X(:)));
     
 end
