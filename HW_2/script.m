@@ -13,7 +13,7 @@ remote_control = 1;
 
 movieFileName = "magic_movie.avi";
 numFrames = 100;
-transformType = 0;
+transformType = 1;
 
 % Magic Movie flow
 
