@@ -25,6 +25,7 @@ function [T] = findAffineTransform(pointsSet1, pointsSet2)
     % Calculate AX=X_tag Accordingly to LMS solution for A
     A = pinv(X) * X_tag;
 
+    % Back to transformation matrix
     T = [A(1, 1), A(2, 1), A(5, 1); A(3, 1), A(4, 1), A(6, 1); 0, 0, 1];
 
 end

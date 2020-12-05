@@ -43,19 +43,23 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
     set(gca,'ytick',[]);
     hold on;
 
+    pointsSet_0_pointsSet_grab_trajectory_x = zeros(5, numFrames);
+    pointsSet_0_pointsSet_grab_trajectory_y = zeros(5, numFrames);
+    pointsSet_grab_pointsSet_1_trajectory_x = zeros(5, numFrames);
+    pointsSet_grab_pointsSet_1_trajectory_y = zeros(5, numFrames);
     % Prepare trajectory for both ways
     for i = 1: 5
-        pointsSet_0_pointsSet_grab_trajectory_x(:, i) = linspace(pointsSet_0(1, i), pointsSet_grab(1, i), numFrames);
-        pointsSet_0_pointsSet_grab_trajectory_y(:, i) = linspace(pointsSet_0(2, i), pointsSet_grab(2, i), numFrames);
+        pointsSet_0_pointsSet_grab_trajectory_x(i, :) = linspace(pointsSet_0(1, i), pointsSet_grab(1, i), numFrames);
+        pointsSet_0_pointsSet_grab_trajectory_y(i, :) = linspace(pointsSet_0(2, i), pointsSet_grab(2, i), numFrames);
 
-        grab_trajectory_pointsSet_1_pointsSex_x(:, i) = linspace(pointsSet_grab(1, i), pointsSet_1(1, i), numFrames);
-        grab_trajectory_pointsSet_1_pointsSex_y(:, i) = linspace(pointsSet_grab(2, i), pointsSet_1(2, i), numFrames);
+        pointsSet_grab_pointsSet_1_trajectory_x(i, :) = linspace(pointsSet_grab(1, i), pointsSet_1(1, i), numFrames);
+        pointsSet_grab_pointsSet_1_trajectory_y(i, :) = linspace(pointsSet_grab(2, i), pointsSet_1(2, i), numFrames);
     end
 
     % Motion 1 - from pointsSet_0 to pointsSet_grab
     for i = 1: numFrames
         
-        p = plot(pointsSet_0_pointsSet_grab_trajectory_x(i, :)', pointsSet_0_pointsSet_grab_trajectory_y(i, :)', 'Color', 'cyan', 'LineWidth', 2);
+        p = plot(pointsSet_0_pointsSet_grab_trajectory_x(:, i)', pointsSet_0_pointsSet_grab_trajectory_y(:, i)', 'Color', 'cyan', 'LineWidth', 2);
         
         frameT = getframe(gcf);
         writeVideo(video,frameT);
@@ -67,13 +71,12 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
     % Motion 2 - from pointsSet_grab to pointsSet_1
     for i = 1: numFrames
 
-        pointsSet1 = [pointsSet_grab(1, 1: end - 1); pointsSet_grab(2, 1: end - 1)];
-        pointsSet2 = [grab_trajectory_pointsSet_1_pointsSex_x(i, :); grab_trajectory_pointsSet_1_pointsSex_y(i, :)];
+        pointsSet2 = [pointsSet_grab_pointsSet_1_trajectory_x(:, i)'; pointsSet_grab_pointsSet_1_trajectory_y(:, i)'];
         
-        newIm = mapQuad(im, pointsSet1, pointsSet2, transformType);
+        newIm = mapQuad(im, pointsSet_grab, pointsSet2, transformType);
 
         imagesc(newIm);
-        p = plot(grab_trajectory_pointsSet_1_pointsSex_x(i, :)', grab_trajectory_pointsSet_1_pointsSex_y(i, :)', 'Color', 'cyan', 'LineWidth', 2);
+        p = plot(pointsSet_grab_pointsSet_1_trajectory_x(:, i)', pointsSet_grab_pointsSet_1_trajectory_y(:, i)', 'Color', 'cyan', 'LineWidth', 2);
 
         frameT = getframe(gcf);
         writeVideo(video,frameT);
