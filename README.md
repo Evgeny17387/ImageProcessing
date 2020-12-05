@@ -1,6 +1,7 @@
 # ImageProcessing
 ## Description
 This repo contains homeworks done as part of the ImageProcessing course in Haifa University, Israel</br>
+In order to receive the results for each HW, simply run script.m file
 
 ### HW 1
 #### Qunatization
