@@ -67,8 +67,8 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
     % Motion 2 - from pointsSet_grab to pointsSet_1
     for i = 1: numFrames
 
-        pointsSet1 = [grab_trajectory_pointsSet_1_pointsSex_x(i, :); grab_trajectory_pointsSet_1_pointsSex_y(i, :)];
-        pointsSet2 = pointsSet_grab;
+        pointsSet1 = [pointsSet_grab(1, 1: end - 1); pointsSet_grab(2, 1: end - 1)];
+        pointsSet2 = [grab_trajectory_pointsSet_1_pointsSex_x(i, :); grab_trajectory_pointsSet_1_pointsSex_y(i, :)];
         
         newIm = mapQuad(im, pointsSet1, pointsSet2, transformType);
 

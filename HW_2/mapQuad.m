@@ -9,13 +9,26 @@ function [newIm] = mapQuad(im, pointsSet1, pointsSet2, transformType)
 % Name - Evgeny Ostrovsky
 % Email - evgeny17387@gmail.com
 
-    switch transformType
-        case 0
-            T = findAffineTransform(pointsSet1, pointsSet2);
-        case 1
-            T = findProjectiveTransform(pointsSet1, pointsSet2);
-    end
-    
     newIm = im;
 
+    switch transformType
+        case 0
+            T = findAffineTransform(pointsSet2, pointsSet1);
+        case 1
+            T = findProjectiveTransform(pointsSet2, pointsSet1);
+    end
+    
+    min_x = min(pointsSet2(1, :));
+    min_y = min(pointsSet2(2, :));
+    max_x = max(pointsSet2(1, :));
+    max_y = max(pointsSet2(2, :));
+    
+    for x = min_x: max_x
+        for y = min_y: max_y
+            if inpolygon(x, y, pointsSet2(1, :)', pointsSet2(2, :)')
+                newIm(floor(y), floor(x)) = 0;
+            end
+        end
+    end
+    
 end

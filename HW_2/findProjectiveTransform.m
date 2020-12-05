@@ -1,4 +1,4 @@
-function [T] = findProjectiveTransform(pointsSet1,pointsSet2)
+function [T] = findProjectiveTransform(pointsSet1, pointsSet2)
 % Description:
 % This routine calculates the Affine transform that maps points in set1 to corresponding points in set2, optimally in the least mean square sense
 % Inputs:
