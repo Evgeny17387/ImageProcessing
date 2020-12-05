@@ -34,12 +34,13 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
     imagesc(im);
     hold on;
 
-    % Prepare trajectory for 
+    % Prepare trajectory for both ways
     for i = 1: 5
-
         pointsSet_0_pointsSet_grab_trajectory_x(:, i) = linspace(pointsSet_0(1, i), pointsSet_grab(1, i), numFrames);
         pointsSet_0_pointsSet_grab_trajectory_y(:, i) = linspace(pointsSet_0(2, i), pointsSet_grab(2, i), numFrames);
 
+        grab_trajectory_pointsSet_1_pointsSex_x(:, i) = linspace(pointsSet_grab(1, i), pointsSet_1(1, i), numFrames);
+        grab_trajectory_pointsSet_1_pointsSex_y(:, i) = linspace(pointsSet_grab(2, i), pointsSet_1(2, i), numFrames);
     end
 
     % Motion 1 - from pointsSet_0 to pointsSet_grab
@@ -50,7 +51,17 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
         frameT = getframe(gcf);
         writeVideo(video,frameT);
 
-%         pause(1);
+        delete(p);
+        
+    end
+
+    % Motion 2 - from pointsSet_grab to pointsSet_1
+    for i = 1: numFrames
+        
+        p = plot(grab_trajectory_pointsSet_1_pointsSex_x(i, :)', grab_trajectory_pointsSet_1_pointsSex_y(i, :)', 'Color', 'cyan', 'LineWidth', 2);
+        
+        frameT = getframe(gcf);
+        writeVideo(video,frameT);
 
         delete(p);
         
