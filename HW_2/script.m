@@ -11,9 +11,9 @@ remote_control = 1;
 
 % Parameters
 
-movieFileName = "magic_movie.avi";
-numFrames = 100;
-transformType = 1;
+movieFileName = "allPointsSets.avi";
+numFrames = 200;
+transformType = 0;
 
 % Magic Movie flow
 
