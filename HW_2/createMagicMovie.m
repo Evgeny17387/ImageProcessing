@@ -30,18 +30,27 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
     video = VideoWriter(movieFileName);
     open(video);
     
+    % Plot originak image and wait for objects to be plotted
     imagesc(im);
     hold on;
 
-    % Motion 1 - from pointsSet_0 to pointsSet_grab
-    for i = 0 : numFrames / 2
-        
-        p = plot(pointsSet_0(1, :), pointsSet_0(2, :), 'Color', 'cyan', 'LineWidth', 2);
+    % Prepare trajectory for 
+    for i = 1: 5
 
+        pointsSet_0_pointsSet_grab_trajectory_x(:, i) = linspace(pointsSet_0(1, i), pointsSet_grab(1, i), numFrames);
+        pointsSet_0_pointsSet_grab_trajectory_y(:, i) = linspace(pointsSet_0(2, i), pointsSet_grab(2, i), numFrames);
+
+    end
+
+    % Motion 1 - from pointsSet_0 to pointsSet_grab
+    for i = 1: numFrames
+        
+        p = plot(pointsSet_0_pointsSet_grab_trajectory_x(i, :)', pointsSet_0_pointsSet_grab_trajectory_y(i, :)', 'Color', 'cyan', 'LineWidth', 2);
+        
         frameT = getframe(gcf);
         writeVideo(video,frameT);
 
-        pause(1);
+%         pause(1);
 
         delete(p);
         
