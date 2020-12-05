@@ -12,7 +12,7 @@ transformType = 0;
 
 movieFileName = "myMovie.avi";
 variablesFileName = "allPointsSets.mat";
-numFrames = 200;
+numFrames = 10;
 
 % Magic Movie flow
 
