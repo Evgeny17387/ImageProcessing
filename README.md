@@ -18,8 +18,8 @@ Adaptive Binarization with sliding window can make objects distinguishable from 
 #### Spatial Transformation
 Using affine and projectional transformation, we create a movie</br>
 <p>
-<img src="HW_2/Results/1.png" width="230">
-<img src="HW_2/Results/2.png" width="230">
-<img src="HW_2/Results/3.png" width="230">
-<img src="HW_2/Results/4.png" width="230">
+<img src="HW_2/Results/1.png" width="200">
+<img src="HW_2/Results/2.png" width="200">
+<img src="HW_2/Results/3.png" width="200">
+<img src="HW_2/Results/4.png" width="200">
 </p>
