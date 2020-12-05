@@ -26,7 +26,8 @@ function [newIm] = mapQuad(im, pointsSet1, pointsSet2, transformType)
     for x = min_x: max_x
         for y = min_y: max_y
             if inpolygon(x, y, pointsSet2(1, :)', pointsSet2(2, :)')
-                newIm(floor(y), floor(x)) = 0;
+                X_tag = T * [x, y, 1]';
+                newIm(floor(y), floor(x)) = im(floor(X_tag(2, 1)), floor(X_tag(1, 1)));
             end
         end
     end

@@ -84,8 +84,11 @@ function [] = createMagicMovie(movieFileName, numFrames, im, transformType, poin
         delete(p);
         
     end
+    
+    % Since last image will have no frame
+    p = plot(pointsSet_grab_pointsSet_1_trajectory_x(:, i)', pointsSet_grab_pointsSet_1_trajectory_y(:, i)', 'Color', 'cyan', 'LineWidth', 2);
 
     % End video
-     close(video);
+    close(video);
 
 end
