@@ -1,0 +1,25 @@
+function [pointsSet_grab, pointsSet_0, pointsSet_1] = getUserInputs(im)
+% Description:
+% 
+% Inputs:
+% im - 
+% Outputs:
+% pointsSet_grab - 
+% pointsSet_0 - 
+% pointsSet_1 - 
+% Author:
+% Name - Evgeny Ostrovsky
+% Email - evgeny17387@gmail.com
+    
+    % P
+    imagesc(im);
+    colormap('gray');
+    axis image;
+    set(gca,'xtick',[]);
+    set(gca,'ytick',[]);
+
+    x = ginput(3);
+    
+    print(x);
+
+end
