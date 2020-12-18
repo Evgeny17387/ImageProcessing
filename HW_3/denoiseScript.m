@@ -73,7 +73,7 @@ clear;
 close all;
 
 imageFileName = "lena.tif";
-s = 10;
+s = 20;
 maskRadius = [1, 1];
 maskSTD = 3;
 
