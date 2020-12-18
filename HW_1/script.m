@@ -7,7 +7,7 @@ close all;
 N = 4;
 
 figure('WindowState', 'maximized');
-set(gcf, 'Color', 'white');p
+set(gcf, 'Color', 'white');
 
 image = round(double(imread("Images\cups.tif")));
 subplot(1, 3, 1)
