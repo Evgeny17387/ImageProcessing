@@ -11,15 +11,16 @@ close all;
 % Parameters
 
 image_file_name = "lena.tif";
-p = 0.1;
-maskRadius = [1, 1];
-maskSTD = 10;
+s = 20;
 
 % Init
 
 im = round(double(imread("Images\" + image_file_name)));
+[noisyIm] = addGaussianNoise(im, s);
 
 % Debug Options
 
+subplot(2, 2, 1)
 imagesc(im)
-title(['1', newline, '2'], 'FontSize', 16)
+subplot(2, 2, 2)
+imagesc(noisyIm)
