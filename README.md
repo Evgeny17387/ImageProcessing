@@ -14,6 +14,10 @@ Optimal Binarization makes objects distinguishable from background
 ![](HW_1/Results/Section_B.png)
 Adaptive Binarization with sliding window can make objects distinguishable from background in more complex environment, since it calculates local thresholds instead of singal global
 ![](HW_1/Results/Section_C.png)
+### HW 3
+#### Salt-Paper Noise Filtering
+For Salt-Paper noise, Median filtering does better work than Mean filtering as can be seen and also by the PSNR value</br>
+![](HW_3/Results/Section_A.png)
 ### HW 2
 #### Spatial Transformation
 Using affine and projectional transformation, we create a movie</br>
@@ -23,8 +27,3 @@ Using affine and projectional transformation, we create a movie</br>
 <img src="HW_2/Results/3.png" width="200">
 <img src="HW_2/Results/4.png" width="200">
 </p>
-### HW 3
-#### Salt-Paper Noise Filtering
-For Salt-Paper noise, Median filtering does better work than Mean filtering as can be seen and also by the PSNR value</br>
-<p>
-![](HW_3/Results/Section_A.png)
