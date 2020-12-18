@@ -23,3 +23,8 @@ Using affine and projectional transformation, we create a movie</br>
 <img src="HW_2/Results/3.png" width="200">
 <img src="HW_2/Results/4.png" width="200">
 </p>
+### HW 3
+#### Salt-Paper Noise Filtering
+For Salt-Paper noise, Median filtering does better work than Mean filtering as can be seen and also by the PSNR value</br>
+<p>
+![](HW_3/Results/Section_A.png)
