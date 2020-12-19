@@ -121,9 +121,9 @@ set(gca,'ytick',[])
 section_b_text = [
     '\bf ', 'Section B: Gaussian Noise, Median Vs. Average Filters', ' \rm', ...
     newline, ...
-    'This time it is hard to tell which filter is better', ...
+    'As can be seen, Mean filter works better', ...
     newline, ...
-    'Also, the PNSR is very similar', ...
+    'Altough, the PNSR is slighly higher for median', ...
     newline, ...
     newline, ...
     newline, ...
@@ -481,5 +481,161 @@ section_g_text = [
 
 sgtitle(section_g_text, 'Color', 'blue')
 disp(section_g_text)
+
+pause
+
+%% Section H
+
+clc;
+clear;
+close all;
+
+imageFileName = "lena.tif";
+im = round(double(imread("Images\" + imageFileName)));
+
+s = 30;
+
+images = 10;
+imArray = zeros(images, size(im, 1), size(im, 2));
+psnrArray = zeros(images);
+
+figure('WindowState', 'maximized');
+set(gcf, 'Color', 'white');
+
+subplot(1, 3, 1);
+imagesc(im);
+title(['Original'], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+for noisyImIndex = 1 : images
+
+    [imArray(noisyImIndex, :, :)] = addGaussianNoise(im, s);
+    [cleanIm] = cleanImageMedian_multi(imArray(1:noisyImIndex, :, :));
+    psnrArray(noisyImIndex) = calcPSNR(cleanIm, im);
+
+    subplot(1, 3, 2);
+    imagesc(cleanIm);
+    title(['Median', '# Images: ' + string(noisyImIndex), 'PSNR: ' + string(psnrArray(noisyImIndex))], 'FontSize', 16);
+    colormap('gray');
+    axis image;
+    set(gca,'xtick',[]);
+    set(gca,'ytick',[]);
+
+    subplot(1, 3, 3);
+    plot(psnrArray(1:noisyImIndex));
+    title(['PSNR Vs. # Images'], 'FontSize', 16);
+    xlabel('# Images');
+    ylabel('PSNR');
+
+    section_h_text = [
+        '\bf ', 'Section H: Gaussian Noise, Median Filter, PSNR Vs. # Images', ' \rm', ...
+        newline, ...
+        '# Images loop is 1 to 10', ...
+        newline, ...
+        newline, ...
+        newline, ...
+        'Please wait untill simulations ends'
+    ];
+
+    sgtitle(section_h_text, 'Color', 'blue')
+    disp(section_h_text)
+    
+    pause(2);
+
+end
+
+section_h_text = [
+    '\bf ', 'Section H: Gaussian Noise, Median Filter, PSNR Vs. # Images', ' \rm', ...
+    newline, ...
+    'As expected, filtering is better for more images', ...
+    newline, ...
+    newline, ...
+    newline, ...
+    'Please hit Enter key to continue to the next section'
+];
+
+sgtitle(section_h_text, 'Color', 'blue')
+disp(section_h_text)
+
+pause
+
+%% Section I
+
+clc;
+clear;
+close all;
+
+imageFileName = "lena.tif";
+im = round(double(imread("Images\" + imageFileName)));
+
+p = 0.1;
+
+images = 10;
+imArray = zeros(images, size(im, 1), size(im, 2));
+psnrArray = zeros(images);
+
+figure('WindowState', 'maximized');
+set(gcf, 'Color', 'white');
+
+subplot(1, 3, 1);
+imagesc(im);
+title(['Original'], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+for noisyImIndex = 1 : images
+
+    [imArray(noisyImIndex, :, :)] = addSPnoise(im, p);
+    [cleanIm] = cleanImageMean_multi(imArray(1:noisyImIndex, :, :));
+    psnrArray(noisyImIndex) = calcPSNR(cleanIm, im);
+
+    subplot(1, 3, 2);
+    imagesc(cleanIm);
+    title(['Mean' '# Images: ' + string(noisyImIndex), 'PSNR: ' + string(psnrArray(noisyImIndex))], 'FontSize', 16);
+    colormap('gray');
+    axis image;
+    set(gca,'xtick',[]);
+    set(gca,'ytick',[]);
+
+    subplot(1, 3, 3);
+    plot(psnrArray(1:noisyImIndex));
+    title(['PSNR Vs. # Images'], 'FontSize', 16);
+    xlabel('# Images');
+    ylabel('PSNR');
+
+    section_i_text = [
+        '\bf ', 'Section I: SP Noise, Median Filter, PSNR Vs. # Images', ' \rm', ...
+        newline, ...
+        '# Images loop is 1 to 10', ...
+        newline, ...
+        newline, ...
+        newline, ...
+        'Please wait untill simulations ends'
+    ];
+
+    sgtitle(section_i_text, 'Color', 'blue')
+    disp(section_i_text)
+    
+    pause(2);
+
+end
+
+section_i_text = [
+    '\bf ', 'Section H: Gaussian Noise, Median Filter, PSNR Vs. # Images', ' \rm', ...
+    newline, ...
+    'As expected, filtering is better for more images', ...
+    newline, ...
+    newline, ...
+    newline, ...
+    'Please hit Enter key to continue to the next section'
+];
+
+sgtitle(section_i_text, 'Color', 'blue')
+disp(section_i_text)
 
 pause
