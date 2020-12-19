@@ -15,7 +15,7 @@ Optimal Binarization makes objects distinguishable from background
 Adaptive Binarization with sliding window can make objects distinguishable from background in more complex environment, since it calculates local thresholds instead of singal global
 ![](HW_1/Results/Section_C.png)
 ### HW 3
-#### Salt-Paper Noise Filtering
+#### Salt-Paper & Gaussian Noise with Median & Mean Filtering
 For Salt-Paper noise, Median filtering does better work than Mean filtering as can be seen and also by the PSNR value</br>
 ![](HW_3/Results/Section_A.png)
 For Gaussin noise, both filters give similar results</br>
