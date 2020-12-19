@@ -756,7 +756,7 @@ set(gca,'xtick',[]);
 set(gca,'ytick',[]);
 
 section_j_text = [
-    '\bf ', 'Section J: Shaepenning', ' \rm', ...
+    '\bf ', 'Section J: Sharpenning - Gaussian Blur', ' \rm', ...
     newline, ...
     'First row shows slight sharpening of the blured image', ...
     newline, ...
@@ -773,3 +773,60 @@ section_j_text = [
 
 sgtitle(section_j_text, 'Color', 'blue')
 disp(section_j_text)
+
+pause
+
+%% Section K
+
+clc;
+clear;
+close all;
+
+imageFileName = "lena.tif";
+im = round(double(imread("Images\" + imageFileName)));
+
+figure('WindowState', 'maximized');
+set(gcf, 'Color', 'white');
+
+subplot(1, 3, 1);
+imagesc(im);
+title('Original');
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+p = 0.1;
+[noisyIm] = addSPnoise(im, p);
+subplot(1, 3, 2);
+imagesc(noisyIm);
+title(['Blur - SP']);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+maskRadius = [2, 2];
+maskSTD = 10;
+lambda = 1;
+[sharpIm] = sharpen(noisyIm, maskRadius, maskSTD, lambda);
+subplot(1, 3, 3);
+imagesc(sharpIm);
+title('Sharpen', 'Lambda: ' + string(lambda));
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+section_k_text = [
+    '\bf ', 'Section K: Sharpenning - SP Noise', ' \rm', ...
+    newline, ...
+    'As can be seen, for SP noise the sharpening doesn''t help', ...
+    newline, ...
+    newline, ...
+    newline, ...
+    'Please hit Enter key to continue to the next section'
+];
+
+sgtitle(section_k_text, 'Color', 'blue')
+disp(section_k_text)
