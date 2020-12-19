@@ -639,3 +639,137 @@ sgtitle(section_i_text, 'Color', 'blue')
 disp(section_i_text)
 
 pause
+
+%% Section J
+
+clc;
+clear;
+close all;
+
+imageFileName = "lena.tif";
+im = round(double(imread("Images\" + imageFileName)));
+
+figure('WindowState', 'maximized');
+set(gcf, 'Color', 'white');
+
+subplot(3, 3, 1);
+imagesc(im);
+title('Original');
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+k = 5;
+blurKernel = ones(k, k) ./ k ^ 2;
+blurIm = conv2(im, blurKernel, "Same");
+subplot(3, 3, 2);
+imagesc(blurIm);
+title(['Blur', 'k: ' + string(k)]);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+maskRadius = [2, 2];
+maskSTD = 10;
+lambda = 1;
+[sharpIm] = sharpen(blurIm, maskRadius, maskSTD, lambda);
+subplot(3, 3, 3);
+imagesc(sharpIm);
+title('Sharpen', 'Lambda: ' + string(lambda));
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+k = 5;
+blurKernel = ones(k, k) ./ k ^ 2;
+blurIm = conv2(im, blurKernel, "Same");
+subplot(3, 3, 4);
+imagesc(blurIm);
+title(['Blur', 'k: ' + string(k)]);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+maskRadius = [2, 2];
+maskSTD = 10;
+lambda = 1;
+[sharpIm] = sharpen(blurIm, maskRadius, maskSTD, lambda);
+subplot(3, 3, 5);
+imagesc(sharpIm);
+title('Sharpen', 'Lambda_0: ' + string(lambda));
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+maskRadius = [2, 2];
+maskSTD = 10;
+lambda = 2;
+[sharpIm] = sharpen(blurIm, maskRadius, maskSTD, lambda);
+subplot(3, 3, 6);
+imagesc(sharpIm);
+rectangle('Position', [50, 50, 30, 75], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
+title('Sharpen', 'Lambda_0: ' + string(lambda));
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+k = 10;
+blurKernel = ones(k, k) ./ k ^ 2;
+blurIm = conv2(im, blurKernel, "Same");
+subplot(3, 3, 7);
+imagesc(blurIm);
+title(['Blur', 'k: ' + string(k)]);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+maskRadius = [2, 2];
+maskSTD = 10;
+lambda = 2;
+[sharpIm] = sharpen(blurIm, maskRadius, maskSTD, lambda);
+subplot(3, 3, 8);
+imagesc(sharpIm);
+title('Sharpen', 'Lambda_0: ' + string(lambda));
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+maskRadius = [2, 2];
+maskSTD = 10;
+lambda = 3;
+[sharpIm] = sharpen(blurIm, maskRadius, maskSTD, lambda);
+subplot(3, 3, 9);
+imagesc(sharpIm);
+rectangle('Position', [50, 50, 30, 75], 'Curvature', [0.8, 0.4], 'EdgeColor', 'r', 'LineWidth', 2, 'LineStyle', '--')
+title('Sharpen', 'Lambda_0: ' + string(lambda));
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+section_j_text = [
+    '\bf ', 'Section J: Shaepenning', ' \rm', ...
+    newline, ...
+    'First row shows slight sharpening of the blured image', ...
+    newline, ...
+    'Second row shows Gibbs effect for k=5', ...
+    newline, ...
+    'Third row shows Gibbs effect for k=10', ...
+    newline, ...
+    'It can be seen that lambda_0 increases with k', ...
+    newline, ...
+    newline, ...
+    newline, ...
+    'Please hit Enter key to continue to the next section'
+];
+
+sgtitle(section_j_text, 'Color', 'blue')
+disp(section_j_text)
