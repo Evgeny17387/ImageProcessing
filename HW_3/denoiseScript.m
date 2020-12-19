@@ -176,7 +176,6 @@ im = round(double(imread("Images\" + imageFileName)));
 [noisyIm] = addSPnoise(im, p);
 
 psnrArray = zeros(1, 10);
-radius_index = 0;
 
 figure('WindowState', 'maximized');
 set(gcf, 'Color', 'white');
@@ -197,23 +196,24 @@ axis image;
 set(gca,'xtick',[]);
 set(gca,'ytick',[]);
 
+radiusIndex = 0;
 for radius = 1 : 10
 
-    radius_index = radius_index + 1;
+    radiusIndex = radiusIndex + 1;
     maskRadius = [radius, radius];
-    [cleanImMedian] = cleanImageMedian(noisyIm, maskRadius);
-    psnrArray(radius_index) = calcPSNR(cleanImMedian, im);
+    [cleanIm] = cleanImageMedian(noisyIm, maskRadius);
+    psnrArray(radiusIndex) = calcPSNR(cleanIm, im);
 
     subplot(1, 4, 3)
-    imagesc(cleanImMedian)
-    title(['Median Filter', 'Radisu: ' + string(radius), 'PSNR: ' + string(psnrArray(radius_index))], 'FontSize', 16)
+    imagesc(cleanIm);
+    title(['Median Filter', 'Radisu: ' + string(radius), 'PSNR: ' + string(psnrArray(radiusIndex))], 'FontSize', 16)
     colormap('gray');
     axis image;
     set(gca,'xtick',[]);
     set(gca,'ytick',[]);
 
     subplot(1, 4, 4);
-    plot(psnrArray(1: radius_index));
+    plot(psnrArray(1: radiusIndex));
     title(['PSNR Vs. Radius'], 'FontSize', 16);
     xlabel('Radius');
     ylabel('PSNR');
@@ -239,7 +239,7 @@ section_d_text = [
     '\bf ', 'Section D: SP Noise, PSNR as Function of Median Filter Radius', ' \rm', ...
     newline, ...
     'As can be seen, the PSNR and the image quality degrades as the radius increases', ...
-    'Which is expected since we take more neighbors thus "ruining" the image quality', ...
+    'Which is expected since we take more neighbors thus "ruining" the image local quality of each pixel', ...
     newline, ...
     newline, ...
     newline, ...
@@ -248,5 +248,94 @@ section_d_text = [
 
 sgtitle(section_d_text, 'Color', 'blue')
 disp(section_d_text)
+
+pause
+
+%% Section E
+
+clc;
+clear;
+close all;
+
+imageFileName = "lena.tif";
+s = 30;
+
+im = round(double(imread("Images\" + imageFileName)));
+
+[noisyIm] = addGaussianNoise(im, s);
+
+psnrArray = zeros(1, 10);
+maskRadius = [5, 5];
+
+figure('WindowState', 'maximized');
+set(gcf, 'Color', 'white');
+
+subplot(1, 4, 1)
+imagesc(im)
+title(['Original'], 'FontSize', 16)
+colormap('gray');
+axis image;
+set(gca,'xtick',[])
+set(gca,'ytick',[])
+
+subplot(1, 4, 2)
+imagesc(noisyIm)
+title(['With Gaussian Noise', 'PSNR: ' + string(calcPSNR(noisyIm, im))], 'FontSize', 16)
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+maskStdIndex = 0;
+for maskStd = 1 : 10
+
+    maskStdIndex = maskStdIndex + 1;
+    [cleanIm] = cleanImageMean(noisyIm, maskRadius, maskStd);
+    psnrArray(maskStdIndex) = calcPSNR(cleanIm, im);
+
+    subplot(1, 4, 3)
+    imagesc(cleanIm)
+    title(['Mean Filter', 'MaskSTD: ' + string(maskStd), 'PSNR: ' + string(psnrArray(maskStdIndex))], 'FontSize', 16)
+    colormap('gray');
+    axis image;
+    set(gca,'xtick',[]);
+    set(gca,'ytick',[]);
+
+    subplot(1, 4, 4);
+    plot(psnrArray(1: maskStdIndex));
+    title(['PSNR Vs. MaskSTD'], 'FontSize', 16);
+    xlabel('MaskSTD');
+    ylabel('PSNR');
+
+    section_e_text = [
+        '\bf ', 'Section E: Gaussian Noise, PSNR as Function of Mean Filter MaskSTD', ' \rm', ...
+        newline, ...
+        'Radius loop is 1 to 10', ...
+        newline, ...
+        newline, ...
+        newline, ...
+        'Please wait untill simulations ends'
+    ];
+
+    sgtitle(section_e_text, 'Color', 'blue')
+    disp(section_e_text)
+    
+    pause(2);
+
+end
+
+section_e_text = [
+    '\bf ', 'Section E: Gaussian Noise, PSNR as Function of Mean Filter MaskSTD', ' \rm', ...
+    newline, ...
+    'As can be seen, the PSNR and the image quality degrades as the maskSTD increases', ...
+    'Which is expected since we take more neighbors thus "ruining" the image local quality of each pixel', ...
+    newline, ...
+    newline, ...
+    newline, ...
+    'Please hit Enter key to continue to the next section'
+];
+
+sgtitle(section_e_text, 'Color', 'blue')
+disp(section_e_text)
 
 pause
