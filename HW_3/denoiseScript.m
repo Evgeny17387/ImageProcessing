@@ -239,6 +239,7 @@ section_d_text = [
     '\bf ', 'Section D: SP Noise, PSNR as Function of Median Filter Radius', ' \rm', ...
     newline, ...
     'As can be seen, the PSNR and the image quality degrades as the radius increases', ...
+    newline, ...
     'Which is expected since we take more neighbors thus "ruining" the image local quality', ...
     newline, ...
     newline, ...
@@ -328,6 +329,7 @@ section_e_text = [
     '\bf ', 'Section E: Gaussian Noise, PSNR as Function of Mean Filter MaskSTD', ' \rm', ...
     newline, ...
     'As can be seen, the PSNR and the image quality degrades as the maskSTD increases', ...
+    newline, ...
     'Which is expected since we take more neighbors thus "ruining" the image local quality of each pixel', ...
     newline, ...
     newline, ...
@@ -337,5 +339,147 @@ section_e_text = [
 
 sgtitle(section_e_text, 'Color', 'blue')
 disp(section_e_text)
+
+pause
+
+%% Section F
+
+clc;
+clear;
+close all;
+
+imageFileName = "lena.tif";
+im = round(double(imread("Images\" + imageFileName)));
+
+s = 30;
+
+images = 10;
+imArray = zeros(images, size(im, 1), size(im, 2));
+
+for noisyImIndex = 1 : images
+    [imArray(noisyImIndex, :, :)] = addGaussianNoise(im, s);
+end
+
+[cleanImMedian] = cleanImageMedian_multi(imArray);
+[cleanImMean] = cleanImageMean_multi(imArray);
+
+figure('WindowState', 'maximized');
+set(gcf, 'Color', 'white');
+
+subplot(1, 4, 1);
+imagesc(im);
+title(['Original'], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+subplot(1, 4, 2);
+imagesc(squeeze(imArray(1, :, :)));
+title(['With Gaussian Noise - First Image', 'PSNR: ' + string(calcPSNR(squeeze(imArray(1, :, :)), im))], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+subplot(1, 4, 3);
+imagesc(cleanImMedian);
+title(['Median', 'PSNR: ' + string(calcPSNR(cleanImMedian, im))], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+subplot(1, 4, 4);
+imagesc(cleanImMean);
+title(['Mean', 'PSNR: ' + string(calcPSNR(cleanImMean, im))], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+section_f_text = [
+    '\bf ', 'Section F: Multiple Images, Gaussian Noise, Median Vs. Mean Filter', ' \rm', ...
+    newline, ...
+    'As can be seen, Mean filter works slightly better for Gaussian Noise', ...
+    newline, ...
+    newline, ...
+    newline, ...
+    'Please hit Enter key to continue to the next section'
+];
+
+sgtitle(section_f_text, 'Color', 'blue')
+disp(section_f_text)
+
+pause
+
+%% Section G
+
+clc;
+clear;
+close all;
+
+imageFileName = "lena.tif";
+im = round(double(imread("Images\" + imageFileName)));
+
+p = 0.2;
+
+images = 10;
+imArray = zeros(images, size(im, 1), size(im, 2));
+
+for noisyImIndex = 1 : images
+    [imArray(noisyImIndex, :, :)] = addSPnoise(im, p);
+end
+
+[cleanImMedian] = cleanImageMedian_multi(imArray);
+[cleanImMean] = cleanImageMean_multi(imArray);
+
+figure('WindowState', 'maximized');
+set(gcf, 'Color', 'white');
+
+subplot(1, 4, 1);
+imagesc(im);
+title(['Original'], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+subplot(1, 4, 2);
+imagesc(squeeze(imArray(1, :, :)));
+title(['With SP Noise - First Image', 'PSNR: ' + string(calcPSNR(squeeze(imArray(1, :, :)), im))], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+subplot(1, 4, 3);
+imagesc(cleanImMedian);
+title(['Median', 'PSNR: ' + string(calcPSNR(cleanImMedian, im))], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+subplot(1, 4, 4);
+imagesc(cleanImMean);
+title(['Mean', 'PSNR: ' + string(calcPSNR(cleanImMean, im))], 'FontSize', 16);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+section_g_text = [
+    '\bf ', 'Section G: Multiple Images, SP Noise, Median Vs. Mean Filter', ' \rm', ...
+    newline, ...
+    'As can be seen, Median filter works significantly better for SP Noise', ...
+    newline, ...
+    newline, ...
+    newline, ...
+    'Please hit Enter key to continue to the next section'
+];
+
+sgtitle(section_g_text, 'Color', 'blue')
+disp(section_g_text)
 
 pause

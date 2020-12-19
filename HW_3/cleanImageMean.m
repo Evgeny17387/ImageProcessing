@@ -4,6 +4,7 @@ function [cleanIm] = cleanImageMean(im, maskRadius, maskSTD)
 % Inputs:
 % im - a grayscale image array in the range [0..255]
 % maskRadius - a 1x2 vector [numRows,numCols]
+% maskSTD - standart deviation of the gaussian kernel for mean summation
 % Outputs:
 % cleanIm - grayscale image in the range [0..255] same size as im
 % Author:
