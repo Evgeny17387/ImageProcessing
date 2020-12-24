@@ -11,8 +11,12 @@ function [cleanIm] = cleanImageMean(im, maskRadius, maskSTD)
 % Name - Evgeny Ostrovsky
 % Email - evgeny17387@gmail.com
 
-    gaussianKernel = fspecial('gaussian', 2 * maskRadius + 1, maskSTD);
+    [X, Y] = meshgrid(-maskRadius(1) : maskRadius(1), -maskRadius(2) : maskRadius(2));
+    gaussianKernel = exp(-(X .^ 2 + Y .^ 2) / (2 * maskSTD * maskSTD)) / (maskSTD * sqrt(2 * pi));
+    gaussianKernel = gaussianKernel / sum(sum(gaussianKernel));
 
+    sum(sum(gaussianKernel))
+    
     cleanIm = conv2(im, gaussianKernel, "Same");
 
 end

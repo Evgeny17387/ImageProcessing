@@ -7,7 +7,7 @@ close all;
 imageFileName = "lena.tif";
 p = 0.1;
 maskRadius = [1, 1];
-maskSTD = 10;
+maskSTD = 3;
 
 im = round(double(imread("Images\" + imageFileName)));
 
@@ -74,7 +74,7 @@ close all;
 
 imageFileName = "lena.tif";
 s = 20;
-maskRadius = [1, 1];
+maskRadius = [2, 2];
 maskSTD = 3;
 
 im = round(double(imread("Images\" + imageFileName)));
@@ -830,3 +830,42 @@ section_k_text = [
 
 sgtitle(section_k_text, 'Color', 'blue')
 disp(section_k_text)
+
+pause
+
+%% Section Bonus
+
+clc;
+clear;
+close all;
+
+imageFileName = "lena.tif";
+im = round(double(imread("Images\" + imageFileName)));
+
+figure('WindowState', 'maximized');
+set(gcf, 'Color', 'white');
+
+subplot(1, 2, 1);
+imagesc(im);
+title('Original');
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+t = 10;
+[noisyIm] = addMotionBlur(im, t);
+subplot(1, 2, 2);
+imagesc(noisyIm);
+title(['Motion Blur']);
+colormap('gray');
+axis image;
+set(gca,'xtick',[]);
+set(gca,'ytick',[]);
+
+section_bonus_text = [
+    '\bf ', 'Section Bonus: Motion Blur', ' \rm', ...
+];
+
+sgtitle(section_bonus_text, 'Color', 'blue')
+disp(section_bonus_text)

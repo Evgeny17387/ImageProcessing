@@ -4,39 +4,11 @@ clc;
 clear;
 close all;
 
-imageFileName = "lena.tif";
-im = round(double(imread("Images\" + imageFileName)));
+sigma = 1.76;
+sz = 4;
+[x,y]=meshgrid(-sz:sz,-sz:sz);
 
-figure('WindowState', 'maximized');
-set(gcf, 'Color', 'white');
-
-subplot(1, 3, 1);
-imagesc(im);
-title('Original');
-colormap('gray');
-axis image;
-set(gca,'xtick',[]);
-set(gca,'ytick',[]);
-
-k = 5;
-blurKernel = ones(k, k) ./ k ^ 2;
-blurIm = conv2(im, blurKernel, "Same");
-subplot(1, 3, 2);
-imagesc(blurIm);
-title(['Blur', 'k: ' + string(k)]);
-colormap('gray');
-axis image;
-set(gca,'xtick',[]);
-set(gca,'ytick',[]);
-
-maskRadius = [2, 2];
-maskSTD = 10;
-lambda = 1;
-[sharpIm] = sharpen(blurIm, maskRadius, maskSTD, lambda);
-subplot(1, 3, 3);
-imagesc(sharpIm);
-title('Sharpen', 'Lambda: ' + string(lambda));
-colormap('gray');
-axis image;
-set(gca,'xtick',[]);
-set(gca,'ytick',[]);
+M = size(x,1)-1;
+N = size(y,1)-1;
+Exp_comp = -(x.^2+y.^2)/(2*sigma*sigma);
+Kernel= exp(Exp_comp)/(2*pi*sigma*sigma);

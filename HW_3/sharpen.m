@@ -11,7 +11,9 @@ function [sharpIm] = sharpen(im, maskRadius, maskSTD, lambda)
 % Name - Evgeny Ostrovsky
 % Email - evgeny17387@gmail.com
 
-    gaussianKernel = fspecial('gaussian', 2 * maskRadius + 1, maskSTD);
+    [X, Y] = meshgrid(-maskRadius(1) : maskRadius(1), -maskRadius(2) : maskRadius(2));
+    gaussianKernel = exp(-(X .^ 2 + Y .^ 2) / (2 * maskSTD * maskSTD)) / (maskSTD * sqrt(2 * pi));
+    gaussianKernel = gaussianKernel / sum(sum(gaussianKernel));
     
     deltaKernel = zeros(2 * maskRadius(1) + 1, 2 * maskRadius(2) + 1);
     deltaKernel(maskRadius(1) + 1, maskRadius(2) + 1) = 1;
